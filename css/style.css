@@ -1,0 +1,220 @@
+/* Reset gaya default */
+body, h1, h2, h3, p, form, button, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+
+  /* Style untuk header */
+header {
+    background-color: #6a1b9a; /* Ungu */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(89, 2, 139, 0.514);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* Style untuk judul di dalam header */
+  header h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 36px;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+  
+  /* Responsive: ukuran font lebih kecil di layar kecil */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 28px;
+    }
+  }
+  
+  header {
+    background: #187939;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  form div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="checkbox"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+
+  /* Style untuk semua tombol */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Warna dasar untuk tombol */
+  button[data-testid="bookItemIsCompleteButton"] {
+    background-color: #4CAF50; /* Hijau */
+    color: white;
+  }
+  
+  button[data-testid="bookItemDeleteButton"] {
+    background-color: #f44336; /* Merah */
+    color: white;
+  }
+  
+  button[data-testid="bookItemEditButton"] {
+    background-color: #2196F3; /* Biru */
+    color: white;
+  }
+  
+  /* Hover effect untuk semua tombol */
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Style khusus untuk tombol hapus */
+  button[data-testid="bookItemDeleteButton"]:hover {
+    background-color: #d32f2f; /* Warna merah yang lebih gelap */
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  #incompleteBookList,
+  #completeBookList {
+    margin-top: 10px;
+  }
+  
+  #incompleteBookList div,
+  #completeBookList div {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  #incompleteBookList h3,
+  #completeBookList h3 {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  #incompleteBookList p,
+  #completeBookList p {
+    margin-bottom: 5px;
+  }
+  
+  div button {
+    margin-right: 5px;
+  }
+
+  #searchBook {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#searchBook label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#searchBook input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#searchBook button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchBook button:hover {
+    background-color: #0056b3;
+}
