@@ -30,12 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookTitleInput = document.getElementById('bookFormTitle');
   const bookAuthorInput = document.getElementById('bookFormAuthor');
   const bookYearInput = document.getElementById('bookFormYear');
+  const bookGenreInput = document.getElementById('bookFormGenre');
+  const bookFranchiseInput = document.getElementById('bookFormFranchise');
   const bookIsCompleteInput = document.getElementById('bookFormIsComplete');
 
   const editBookForm = document.getElementById('editBookForm');
   const editBookTitleInput = document.getElementById('editBookFormTitle');
   const editBookAuthorInput = document.getElementById('editBookFormAuthor');
   const editBookYearInput = document.getElementById('editBookFormYear');
+  const editBookGenreInput = document.getElementById('editBookFormGenre');
+  const editBookFranchiseInput = document.getElementById('editBookFormFranchise');
   const editBookIsCompleteInput = document.getElementById('editBookFormIsComplete');
   const editBookCancelBtn = document.getElementById('editBookFormCancel');
 
@@ -53,12 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const filmTitleInput = document.getElementById('filmFormTitle');
   const filmDirectorInput = document.getElementById('filmFormDirector');
   const filmYearInput = document.getElementById('filmFormYear');
+  const filmGenreInput = document.getElementById('filmFormGenre');
+  const filmFranchiseInput = document.getElementById('filmFormFranchise');
   const filmIsCompleteInput = document.getElementById('filmFormIsComplete');
 
   const editFilmForm = document.getElementById('editFilmForm');
   const editFilmTitleInput = document.getElementById('editFilmFormTitle');
   const editFilmDirectorInput = document.getElementById('editFilmFormDirector');
   const editFilmYearInput = document.getElementById('editFilmFormYear');
+  const editFilmGenreInput = document.getElementById('editFilmFormGenre');
+  const editFilmFranchiseInput = document.getElementById('editFilmFormFranchise');
   const editFilmIsCompleteInput = document.getElementById('editFilmFormIsComplete');
   const editFilmCancelBtn = document.getElementById('editFilmFormCancel');
 
@@ -306,6 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3 class="book-title">${book.title}</h3>
         <p class="book-meta"><i class='bx bxs-user'></i> ${book.author}</p>
         <p class="book-meta"><i class='bx bxs-calendar'></i> ${book.year}</p>
+        ${book.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${book.genre}</p>` : ''}
+        ${book.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${book.franchise}</p>` : ''}
         <div class="book-badges">${statusBadge}${ownerBadge}</div>
       </div>
       <div class="book-actions">
@@ -322,7 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!showOwner) {
       div.querySelector('.toggle').addEventListener('click', async () => {
         await updateItem(BOOKS_API, book.id, {
-          title: book.title, author: book.author, year: book.year, isComplete: !book.isComplete,
+          title: book.title, author: book.author, year: book.year,
+          genre: book.genre, franchise: book.franchise, isComplete: !book.isComplete,
         });
         renderAll();
       });
@@ -331,6 +342,8 @@ document.addEventListener('DOMContentLoaded', () => {
         editBookTitleInput.value = book.title;
         editBookAuthorInput.value = book.author;
         editBookYearInput.value = book.year;
+        editBookGenreInput.value = book.genre || '';
+        editBookFranchiseInput.value = book.franchise || '';
         editBookIsCompleteInput.checked = book.isComplete;
         navigateTo('editBookSection');
       });
@@ -359,6 +372,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3 class="book-title">${film.title}</h3>
         <p class="book-meta"><i class='bx bxs-user'></i> ${film.director}</p>
         <p class="book-meta"><i class='bx bxs-calendar'></i> ${film.year}</p>
+        ${film.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${film.genre}</p>` : ''}
+        ${film.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${film.franchise}</p>` : ''}
         <div class="book-badges">${statusBadge}${ownerBadge}</div>
       </div>
       <div class="book-actions">
@@ -375,7 +390,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!showOwner) {
       div.querySelector('.toggle').addEventListener('click', async () => {
         await updateItem(FILMS_API, film.id, {
-          title: film.title, director: film.director, year: film.year, isComplete: !film.isComplete,
+          title: film.title, director: film.director, year: film.year,
+          genre: film.genre, franchise: film.franchise, isComplete: !film.isComplete,
         });
         renderAll();
       });
@@ -384,6 +400,8 @@ document.addEventListener('DOMContentLoaded', () => {
         editFilmTitleInput.value = film.title;
         editFilmDirectorInput.value = film.director;
         editFilmYearInput.value = film.year;
+        editFilmGenreInput.value = film.genre || '';
+        editFilmFranchiseInput.value = film.franchise || '';
         editFilmIsCompleteInput.checked = film.isComplete;
         navigateTo('editFilmSection');
       });
@@ -485,6 +503,8 @@ document.addEventListener('DOMContentLoaded', () => {
       title: bookTitleInput.value,
       author: bookAuthorInput.value,
       year: Number(bookYearInput.value),
+      genre: bookGenreInput.value,
+      franchise: bookFranchiseInput.value,
       isComplete: bookIsCompleteInput.checked,
     };
     await addItem(BOOKS_API, book);
@@ -500,6 +520,8 @@ document.addEventListener('DOMContentLoaded', () => {
       title: editBookTitleInput.value,
       author: editBookAuthorInput.value,
       year: Number(editBookYearInput.value),
+      genre: editBookGenreInput.value,
+      franchise: editBookFranchiseInput.value,
       isComplete: editBookIsCompleteInput.checked,
     });
     editingBookId = null;
@@ -536,6 +558,8 @@ document.addEventListener('DOMContentLoaded', () => {
       title: filmTitleInput.value,
       director: filmDirectorInput.value,
       year: Number(filmYearInput.value),
+      genre: filmGenreInput.value,
+      franchise: filmFranchiseInput.value,
       isComplete: filmIsCompleteInput.checked,
     };
     await addItem(FILMS_API, film);
@@ -551,6 +575,8 @@ document.addEventListener('DOMContentLoaded', () => {
       title: editFilmTitleInput.value,
       director: editFilmDirectorInput.value,
       year: Number(editFilmYearInput.value),
+      genre: editFilmGenreInput.value,
+      franchise: editFilmFranchiseInput.value,
       isComplete: editFilmIsCompleteInput.checked,
     });
     editingFilmId = null;
