@@ -32,392 +32,474 @@
     <div class="particle"></div>
   </div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-icon">
-        <i class='bx bxs-book-heart'></i>
+  <!-- ============================== -->
+  <!-- LOGIN / REGISTER PAGE -->
+  <!-- ============================== -->
+  <div class="auth-container" id="authContainer">
+    <div class="auth-card glass-card">
+      <div class="auth-logo">
+        <div class="logo-icon"><i class='bx bxs-book-heart'></i></div>
+        <h1 class="logo-text">Bookshelf</h1>
+        <p class="auth-subtitle">Kelola koleksi buku & film bersama</p>
       </div>
-      <h2 class="logo-text">Bookshelf</h2>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form">
+        <h2>Login</h2>
+        <div class="form-group">
+          <label for="loginEmail"><i class='bx bxs-envelope'></i> Email</label>
+          <input id="loginEmail" type="email" required placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="loginPassword"><i class='bx bxs-lock'></i> Password</label>
+          <input id="loginPassword" type="password" required placeholder="Masukkan password..." />
+        </div>
+        <div id="loginError" class="auth-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">
+          <i class='bx bxs-log-in'></i> Masuk
+        </button>
+        <p class="auth-switch">Belum punya akun? <a href="#" id="showRegister">Daftar</a></p>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="auth-form" style="display:none;">
+        <h2>Daftar</h2>
+        <div class="form-group">
+          <label for="registerName"><i class='bx bxs-user'></i> Nama</label>
+          <input id="registerName" type="text" required placeholder="Nama Anda..." />
+        </div>
+        <div class="form-group">
+          <label for="registerEmail"><i class='bx bxs-envelope'></i> Email</label>
+          <input id="registerEmail" type="email" required placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="registerPassword"><i class='bx bxs-lock'></i> Password</label>
+          <input id="registerPassword" type="password" required placeholder="Minimal 6 karakter..." />
+        </div>
+        <div id="registerError" class="auth-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">
+          <i class='bx bxs-user-plus'></i> Daftar
+        </button>
+        <p class="auth-switch">Sudah punya akun? <a href="#" id="showLogin">Login</a></p>
+      </form>
     </div>
+  </div>
 
-    <nav class="sidebar-nav">
-      <!-- Dashboard -->
-      <a href="#" class="nav-link active" data-section="dashboardSection">
-        <i class='bx bxs-dashboard'></i>
-        <span>Dashboard</span>
-      </a>
+  <!-- ============================== -->
+  <!-- MAIN APP (hidden until login) -->
+  <!-- ============================== -->
+  <div class="app-wrapper" id="appWrapper" style="display:none;">
 
-      <!-- Divider: Buku -->
-      <div class="nav-divider">
-        <span><i class='bx bxs-book'></i> BUKU</span>
-      </div>
-      <a href="#" class="nav-link" data-section="addBookSection">
-        <i class='bx bxs-book-add'></i>
-        <span>Tambah Buku</span>
-      </a>
-      <a href="#" class="nav-link" data-section="incompleteBookSection">
-        <i class='bx bxs-book-reader'></i>
-        <span>Belum Selesai</span>
-      </a>
-      <a href="#" class="nav-link" data-section="completeBookSection">
-        <i class='bx bxs-book-bookmark'></i>
-        <span>Selesai Dibaca</span>
-      </a>
-      <a href="#" class="nav-link" data-section="searchBookSection">
-        <i class='bx bxs-search-alt-2'></i>
-        <span>Cari Buku</span>
-      </a>
-
-      <!-- Divider: Film -->
-      <div class="nav-divider">
-        <span><i class='bx bxs-film'></i> FILM</span>
-      </div>
-      <a href="#" class="nav-link" data-section="addFilmSection">
-        <i class='bx bxs-video-plus'></i>
-        <span>Tambah Film</span>
-      </a>
-      <a href="#" class="nav-link" data-section="incompleteFilmSection">
-        <i class='bx bxs-video-off'></i>
-        <span>Belum Ditonton</span>
-      </a>
-      <a href="#" class="nav-link" data-section="completeFilmSection">
-        <i class='bx bxs-video'></i>
-        <span>Sudah Ditonton</span>
-      </a>
-      <a href="#" class="nav-link" data-section="searchFilmSection">
-        <i class='bx bxs-search-alt-2'></i>
-        <span>Cari Film</span>
-      </a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div class="sidebar-footer-text">
-        <i class='bx bxs-heart'></i>
-        <span>Made by Ariyogi</span>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Mobile Hamburger -->
-  <button class="hamburger" id="hamburger">
-    <i class='bx bx-menu'></i>
-  </button>
-
-  <!-- Main Content -->
-  <div class="content-area" id="contentArea">
-
-    <!-- Header -->
-    <header class="main-header">
-      <h1><span class="neon-text">Bookshelf</span> Ariyogi App</h1>
-      <p class="header-subtitle">Kelola koleksi buku & film digital Anda dengan gaya futuristik</p>
-    </header>
-
-    <!-- ============================== -->
-    <!-- DASHBOARD -->
-    <!-- ============================== -->
-    <section class="page-section active" id="dashboardSection">
-      <div class="section-title">
-        <i class='bx bxs-dashboard'></i>
-        <h2>Dashboard</h2>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-icon">
+          <i class='bx bxs-book-heart'></i>
+        </div>
+        <h2 class="logo-text">Bookshelf</h2>
       </div>
 
-      <!-- Book Stats -->
-      <div class="category-label"><i class='bx bxs-book'></i> Statistik Buku</div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon cyan"><i class='bx bxs-book-alt'></i></div>
-          <div class="stat-info">
-            <h3 id="totalBooks">0</h3>
-            <p>Total Buku</p>
+      <nav class="sidebar-nav">
+        <!-- Dashboard -->
+        <a href="#" class="nav-link active" data-section="dashboardSection">
+          <i class='bx bxs-dashboard'></i>
+          <span>Dashboard Pribadi</span>
+        </a>
+        <a href="#" class="nav-link" data-section="sharedDashboardSection">
+          <i class='bx bxs-group'></i>
+          <span>Dashboard Keluarga</span>
+        </a>
+
+        <!-- Divider: Buku -->
+        <div class="nav-divider">
+          <span><i class='bx bxs-book'></i> BUKU</span>
+        </div>
+        <a href="#" class="nav-link" data-section="addBookSection">
+          <i class='bx bxs-book-add'></i>
+          <span>Tambah Buku</span>
+        </a>
+        <a href="#" class="nav-link" data-section="incompleteBookSection">
+          <i class='bx bxs-book-reader'></i>
+          <span>Belum Selesai</span>
+        </a>
+        <a href="#" class="nav-link" data-section="completeBookSection">
+          <i class='bx bxs-book-bookmark'></i>
+          <span>Selesai Dibaca</span>
+        </a>
+        <a href="#" class="nav-link" data-section="searchBookSection">
+          <i class='bx bxs-search-alt-2'></i>
+          <span>Cari Buku</span>
+        </a>
+
+        <!-- Divider: Film -->
+        <div class="nav-divider">
+          <span><i class='bx bxs-film'></i> FILM</span>
+        </div>
+        <a href="#" class="nav-link" data-section="addFilmSection">
+          <i class='bx bxs-video-plus'></i>
+          <span>Tambah Film</span>
+        </a>
+        <a href="#" class="nav-link" data-section="incompleteFilmSection">
+          <i class='bx bxs-video-off'></i>
+          <span>Belum Ditonton</span>
+        </a>
+        <a href="#" class="nav-link" data-section="completeFilmSection">
+          <i class='bx bxs-video'></i>
+          <span>Sudah Ditonton</span>
+        </a>
+        <a href="#" class="nav-link" data-section="searchFilmSection">
+          <i class='bx bxs-search-alt-2'></i>
+          <span>Cari Film</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info" id="userInfo">
+          <i class='bx bxs-user-circle'></i>
+          <span id="userName">User</span>
+        </div>
+        <button class="btn-logout" id="logoutBtn">
+          <i class='bx bxs-log-out'></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Mobile Hamburger -->
+    <button class="hamburger" id="hamburger">
+      <i class='bx bx-menu'></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="content-area" id="contentArea">
+
+      <!-- Header -->
+      <header class="main-header">
+        <h1><span class="neon-text">Bookshelf</span> Ariyogi App</h1>
+        <p class="header-subtitle">Kelola koleksi buku & film digital bersama pasangan</p>
+      </header>
+
+      <!-- ============================== -->
+      <!-- PERSONAL DASHBOARD -->
+      <!-- ============================== -->
+      <section class="page-section active" id="dashboardSection">
+        <div class="section-title">
+          <i class='bx bxs-dashboard'></i>
+          <h2>Dashboard Pribadi</h2>
+        </div>
+
+        <div class="category-label"><i class='bx bxs-book'></i> Statistik Buku</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon cyan"><i class='bx bxs-book-alt'></i></div>
+            <div class="stat-info">
+              <h3 id="totalBooks">0</h3>
+              <p>Total Buku</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon magenta"><i class='bx bxs-book-reader'></i></div>
+            <div class="stat-info">
+              <h3 id="incompleteBookCount">0</h3>
+              <p>Belum Selesai</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class='bx bxs-book-bookmark'></i></div>
+            <div class="stat-info">
+              <h3 id="completeBookCount">0</h3>
+              <p>Selesai Dibaca</p>
+            </div>
           </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon magenta"><i class='bx bxs-book-reader'></i></div>
-          <div class="stat-info">
-            <h3 id="incompleteBookCount">0</h3>
-            <p>Belum Selesai</p>
+
+        <div class="category-label" style="margin-top:24px"><i class='bx bxs-film'></i> Statistik Film</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon cyan"><i class='bx bxs-camera-movie'></i></div>
+            <div class="stat-info">
+              <h3 id="totalFilms">0</h3>
+              <p>Total Film</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon magenta"><i class='bx bxs-video-off'></i></div>
+            <div class="stat-info">
+              <h3 id="incompleteFilmCount">0</h3>
+              <p>Belum Ditonton</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class='bx bxs-video'></i></div>
+            <div class="stat-info">
+              <h3 id="completeFilmCount">0</h3>
+              <p>Sudah Ditonton</p>
+            </div>
           </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon green"><i class='bx bxs-book-bookmark'></i></div>
-          <div class="stat-info">
-            <h3 id="completeBookCount">0</h3>
-            <p>Selesai Dibaca</p>
+
+        <div class="section-title" style="margin-top:30px"><i class='bx bxs-time-five'></i>
+          <h2>Buku Terbaru</h2>
+        </div>
+        <div id="recentBooks" class="book-grid"></div>
+        <div class="section-title" style="margin-top:30px"><i class='bx bxs-time-five'></i>
+          <h2>Film Terbaru</h2>
+        </div>
+        <div id="recentFilms" class="book-grid"></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SHARED (FAMILY) DASHBOARD -->
+      <!-- ============================== -->
+      <section class="page-section" id="sharedDashboardSection">
+        <div class="section-title">
+          <i class='bx bxs-group'></i>
+          <h2>Dashboard Keluarga</h2>
+        </div>
+        <p class="section-desc">Semua buku & film dari seluruh anggota keluarga</p>
+
+        <div class="category-label" style="margin-top:16px"><i class='bx bxs-book'></i> Semua Buku Keluarga</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon cyan"><i class='bx bxs-book-alt'></i></div>
+            <div class="stat-info">
+              <h3 id="sharedTotalBooks">0</h3>
+              <p>Total Buku</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon magenta"><i class='bx bxs-book-reader'></i></div>
+            <div class="stat-info">
+              <h3 id="sharedIncBooks">0</h3>
+              <p>Belum Selesai</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class='bx bxs-book-bookmark'></i></div>
+            <div class="stat-info">
+              <h3 id="sharedComBooks">0</h3>
+              <p>Selesai Dibaca</p>
+            </div>
           </div>
         </div>
-      </div>
+        <div id="sharedBooksList" class="book-grid" style="margin-top:20px"></div>
 
-      <!-- Film Stats -->
-      <div class="category-label" style="margin-top: 24px;"><i class='bx bxs-film'></i> Statistik Film</div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon cyan"><i class='bx bxs-camera-movie'></i></div>
-          <div class="stat-info">
-            <h3 id="totalFilms">0</h3>
-            <p>Total Film</p>
+        <div class="category-label" style="margin-top:30px"><i class='bx bxs-film'></i> Semua Film Keluarga</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon cyan"><i class='bx bxs-camera-movie'></i></div>
+            <div class="stat-info">
+              <h3 id="sharedTotalFilms">0</h3>
+              <p>Total Film</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon magenta"><i class='bx bxs-video-off'></i></div>
+            <div class="stat-info">
+              <h3 id="sharedIncFilms">0</h3>
+              <p>Belum Ditonton</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class='bx bxs-video'></i></div>
+            <div class="stat-info">
+              <h3 id="sharedComFilms">0</h3>
+              <p>Sudah Ditonton</p>
+            </div>
           </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon magenta"><i class='bx bxs-video-off'></i></div>
-          <div class="stat-info">
-            <h3 id="incompleteFilmCount">0</h3>
-            <p>Belum Ditonton</p>
-          </div>
+        <div id="sharedFilmsList" class="book-grid" style="margin-top:20px"></div>
+      </section>
+
+      <!-- BOOK SECTIONS (same as before) -->
+      <section class="page-section" id="addBookSection">
+        <div class="section-title"><i class='bx bxs-book-add'></i>
+          <h2>Tambah Buku Baru</h2>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon green"><i class='bx bxs-video'></i></div>
-          <div class="stat-info">
-            <h3 id="completeFilmCount">0</h3>
-            <p>Sudah Ditonton</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-title" style="margin-top: 30px;">
-        <i class='bx bxs-time-five'></i>
-        <h2>Buku Terbaru</h2>
-      </div>
-      <div id="recentBooks" class="book-grid"></div>
-
-      <div class="section-title" style="margin-top: 30px;">
-        <i class='bx bxs-time-five'></i>
-        <h2>Film Terbaru</h2>
-      </div>
-      <div id="recentFilms" class="book-grid"></div>
-    </section>
-
-    <!-- ============================== -->
-    <!-- BOOK SECTIONS -->
-    <!-- ============================== -->
-
-    <!-- Add Book -->
-    <section class="page-section" id="addBookSection">
-      <div class="section-title">
-        <i class='bx bxs-book-add'></i>
-        <h2>Tambah Buku Baru</h2>
-      </div>
-      <div class="glass-card form-card">
-        <form id="bookForm" data-testid="bookForm">
-          <div class="form-group">
-            <label for="bookFormTitle"><i class='bx bxs-edit'></i> Judul Buku</label>
-            <input id="bookFormTitle" type="text" required data-testid="bookFormTitleInput"
-              placeholder="Masukkan judul buku..." />
-          </div>
-          <div class="form-group">
-            <label for="bookFormAuthor"><i class='bx bxs-user'></i> Penulis</label>
-            <input id="bookFormAuthor" type="text" required data-testid="bookFormAuthorInput"
-              placeholder="Masukkan nama penulis..." />
-          </div>
-          <div class="form-group">
-            <label for="bookFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
-            <input id="bookFormYear" type="number" required data-testid="bookFormYearInput"
-              placeholder="Contoh: 2025" />
-          </div>
-          <div class="form-group checkbox-group">
-            <input id="bookFormIsComplete" type="checkbox" data-testid="bookFormIsCompleteCheckbox" />
-            <label for="bookFormIsComplete">Selesai dibaca</label>
-          </div>
-          <button id="bookFormSubmit" type="submit" class="btn btn-primary" data-testid="bookFormSubmitButton">
-            <i class='bx bxs-plus-circle'></i> Masukkan Buku ke rak <span>Belum selesai dibaca</span>
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Edit Book -->
-    <section class="page-section" id="editBookSection">
-      <div class="section-title">
-        <i class='bx bxs-edit-alt'></i>
-        <h2>Edit Buku</h2>
-      </div>
-      <div class="glass-card form-card">
-        <form id="editBookForm" data-testid="editBookForm">
-          <div class="form-group">
-            <label for="editBookFormTitle"><i class='bx bxs-edit'></i> Judul Buku</label>
-            <input id="editBookFormTitle" type="text" required data-testid="editBookFormTitleInput" />
-          </div>
-          <div class="form-group">
-            <label for="editBookFormAuthor"><i class='bx bxs-user'></i> Penulis</label>
-            <input id="editBookFormAuthor" type="text" required data-testid="editBookFormAuthorInput" />
-          </div>
-          <div class="form-group">
-            <label for="editBookFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
-            <input id="editBookFormYear" type="number" required data-testid="editBookFormYearInput" />
-          </div>
-          <div class="form-group checkbox-group">
-            <input id="editBookFormIsComplete" type="checkbox" data-testid="editBookFormIsCompleteCheckbox" />
-            <label for="editBookFormIsComplete">Selesai dibaca</label>
-          </div>
-          <div class="form-actions">
-            <button id="editBookFormSubmit" type="submit" class="btn btn-primary"
-              data-testid="editBookFormSubmitButton">
-              <i class='bx bxs-save'></i> Simpan Perubahan
-            </button>
-            <button id="editBookFormCancel" type="button" class="btn btn-danger" data-testid="editBookFormCancelButton">
-              <i class='bx bxs-x-circle'></i> Batal
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Incomplete Books -->
-    <section class="page-section" id="incompleteBookSection">
-      <div class="section-title">
-        <i class='bx bxs-book-reader'></i>
-        <h2>Belum Selesai Dibaca</h2>
-      </div>
-      <div id="incompleteBookList" data-testid="incompleteBookList" class="book-grid"></div>
-    </section>
-
-    <!-- Complete Books -->
-    <section class="page-section" id="completeBookSection">
-      <div class="section-title">
-        <i class='bx bxs-book-bookmark'></i>
-        <h2>Selesai Dibaca</h2>
-      </div>
-      <div id="completeBookList" data-testid="completeBookList" class="book-grid"></div>
-    </section>
-
-    <!-- Search Books -->
-    <section class="page-section" id="searchBookSection">
-      <div class="section-title">
-        <i class='bx bxs-search-alt-2'></i>
-        <h2>Cari Buku</h2>
-      </div>
-      <div class="glass-card form-card">
-        <form id="searchBook" data-testid="searchBookForm">
-          <div class="form-group">
-            <label for="searchBookTitle"><i class='bx bxs-search'></i> Judul Buku</label>
-            <input id="searchBookTitle" type="text" data-testid="searchBookFormTitleInput"
-              placeholder="Ketik judul buku yang dicari..." />
-          </div>
-          <button id="searchBookSubmit" type="submit" class="btn btn-cyan" data-testid="searchBookFormSubmitButton">
-            <i class='bx bxs-search'></i> Cari Buku
-          </button>
-        </form>
-      </div>
-      <div class="section-title" style="margin-top: 30px;">
-        <i class='bx bxs-book-content'></i>
-        <h2>Hasil Pencarian</h2>
-      </div>
-      <div id="searchBookResults" class="book-grid"></div>
-    </section>
-
-    <!-- ============================== -->
-    <!-- FILM SECTIONS -->
-    <!-- ============================== -->
-
-    <!-- Add Film -->
-    <section class="page-section" id="addFilmSection">
-      <div class="section-title">
-        <i class='bx bxs-video-plus'></i>
-        <h2>Tambah Film Baru</h2>
-      </div>
-      <div class="glass-card form-card">
-        <form id="filmForm">
-          <div class="form-group">
-            <label for="filmFormTitle"><i class='bx bxs-film'></i> Judul Film</label>
-            <input id="filmFormTitle" type="text" required placeholder="Masukkan judul film..." />
-          </div>
-          <div class="form-group">
-            <label for="filmFormDirector"><i class='bx bxs-user'></i> Sutradara</label>
-            <input id="filmFormDirector" type="text" required placeholder="Masukkan nama sutradara..." />
-          </div>
-          <div class="form-group">
-            <label for="filmFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
-            <input id="filmFormYear" type="number" required placeholder="Contoh: 2025" />
-          </div>
-          <div class="form-group checkbox-group">
-            <input id="filmFormIsComplete" type="checkbox" />
-            <label for="filmFormIsComplete">Sudah ditonton</label>
-          </div>
-          <button type="submit" class="btn btn-primary">
-            <i class='bx bxs-plus-circle'></i> Masukkan Film ke rak <span>Belum ditonton</span>
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Edit Film -->
-    <section class="page-section" id="editFilmSection">
-      <div class="section-title">
-        <i class='bx bxs-edit-alt'></i>
-        <h2>Edit Film</h2>
-      </div>
-      <div class="glass-card form-card">
-        <form id="editFilmForm">
-          <div class="form-group">
-            <label for="editFilmFormTitle"><i class='bx bxs-film'></i> Judul Film</label>
-            <input id="editFilmFormTitle" type="text" required />
-          </div>
-          <div class="form-group">
-            <label for="editFilmFormDirector"><i class='bx bxs-user'></i> Sutradara</label>
-            <input id="editFilmFormDirector" type="text" required />
-          </div>
-          <div class="form-group">
-            <label for="editFilmFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
-            <input id="editFilmFormYear" type="number" required />
-          </div>
-          <div class="form-group checkbox-group">
-            <input id="editFilmFormIsComplete" type="checkbox" />
-            <label for="editFilmFormIsComplete">Sudah ditonton</label>
-          </div>
-          <div class="form-actions">
+        <div class="glass-card form-card">
+          <form id="bookForm">
+            <div class="form-group">
+              <label for="bookFormTitle"><i class='bx bxs-edit'></i> Judul Buku</label>
+              <input id="bookFormTitle" type="text" required placeholder="Masukkan judul buku..." />
+            </div>
+            <div class="form-group">
+              <label for="bookFormAuthor"><i class='bx bxs-user'></i> Penulis</label>
+              <input id="bookFormAuthor" type="text" required placeholder="Masukkan nama penulis..." />
+            </div>
+            <div class="form-group">
+              <label for="bookFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
+              <input id="bookFormYear" type="number" required placeholder="Contoh: 2025" />
+            </div>
+            <div class="form-group checkbox-group">
+              <input id="bookFormIsComplete" type="checkbox" />
+              <label for="bookFormIsComplete">Selesai dibaca</label>
+            </div>
             <button type="submit" class="btn btn-primary">
-              <i class='bx bxs-save'></i> Simpan Perubahan
+              <i class='bx bxs-plus-circle'></i> Masukkan Buku
             </button>
-            <button id="editFilmFormCancel" type="button" class="btn btn-danger">
-              <i class='bx bxs-x-circle'></i> Batal
+          </form>
+        </div>
+      </section>
+
+      <section class="page-section" id="editBookSection">
+        <div class="section-title"><i class='bx bxs-edit-alt'></i>
+          <h2>Edit Buku</h2>
+        </div>
+        <div class="glass-card form-card">
+          <form id="editBookForm">
+            <div class="form-group">
+              <label for="editBookFormTitle"><i class='bx bxs-edit'></i> Judul Buku</label>
+              <input id="editBookFormTitle" type="text" required />
+            </div>
+            <div class="form-group">
+              <label for="editBookFormAuthor"><i class='bx bxs-user'></i> Penulis</label>
+              <input id="editBookFormAuthor" type="text" required />
+            </div>
+            <div class="form-group">
+              <label for="editBookFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
+              <input id="editBookFormYear" type="number" required />
+            </div>
+            <div class="form-group checkbox-group">
+              <input id="editBookFormIsComplete" type="checkbox" />
+              <label for="editBookFormIsComplete">Selesai dibaca</label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary"><i class='bx bxs-save'></i> Simpan</button>
+              <button id="editBookFormCancel" type="button" class="btn btn-danger"><i class='bx bxs-x-circle'></i>
+                Batal</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="page-section" id="incompleteBookSection">
+        <div class="section-title"><i class='bx bxs-book-reader'></i>
+          <h2>Belum Selesai Dibaca</h2>
+        </div>
+        <div id="incompleteBookList" class="book-grid"></div>
+      </section>
+
+      <section class="page-section" id="completeBookSection">
+        <div class="section-title"><i class='bx bxs-book-bookmark'></i>
+          <h2>Selesai Dibaca</h2>
+        </div>
+        <div id="completeBookList" class="book-grid"></div>
+      </section>
+
+      <section class="page-section" id="searchBookSection">
+        <div class="section-title"><i class='bx bxs-search-alt-2'></i>
+          <h2>Cari Buku</h2>
+        </div>
+        <div class="glass-card form-card">
+          <form id="searchBook">
+            <div class="form-group">
+              <label for="searchBookTitle"><i class='bx bxs-search'></i> Judul Buku</label>
+              <input id="searchBookTitle" type="text" placeholder="Ketik judul buku..." />
+            </div>
+            <button type="submit" class="btn btn-cyan"><i class='bx bxs-search'></i> Cari</button>
+          </form>
+        </div>
+        <div class="section-title" style="margin-top:30px"><i class='bx bxs-book-content'></i>
+          <h2>Hasil</h2>
+        </div>
+        <div id="searchBookResults" class="book-grid"></div>
+      </section>
+
+      <!-- FILM SECTIONS -->
+      <section class="page-section" id="addFilmSection">
+        <div class="section-title"><i class='bx bxs-video-plus'></i>
+          <h2>Tambah Film Baru</h2>
+        </div>
+        <div class="glass-card form-card">
+          <form id="filmForm">
+            <div class="form-group">
+              <label for="filmFormTitle"><i class='bx bxs-film'></i> Judul Film</label>
+              <input id="filmFormTitle" type="text" required placeholder="Masukkan judul film..." />
+            </div>
+            <div class="form-group">
+              <label for="filmFormDirector"><i class='bx bxs-user'></i> Sutradara</label>
+              <input id="filmFormDirector" type="text" required placeholder="Masukkan nama sutradara..." />
+            </div>
+            <div class="form-group">
+              <label for="filmFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
+              <input id="filmFormYear" type="number" required placeholder="Contoh: 2025" />
+            </div>
+            <div class="form-group checkbox-group">
+              <input id="filmFormIsComplete" type="checkbox" />
+              <label for="filmFormIsComplete">Sudah ditonton</label>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class='bx bxs-plus-circle'></i> Masukkan Film
             </button>
-          </div>
-        </form>
-      </div>
-    </section>
+          </form>
+        </div>
+      </section>
 
-    <!-- Incomplete Films -->
-    <section class="page-section" id="incompleteFilmSection">
-      <div class="section-title">
-        <i class='bx bxs-video-off'></i>
-        <h2>Belum Ditonton</h2>
-      </div>
-      <div id="incompleteFilmList" class="book-grid"></div>
-    </section>
+      <section class="page-section" id="editFilmSection">
+        <div class="section-title"><i class='bx bxs-edit-alt'></i>
+          <h2>Edit Film</h2>
+        </div>
+        <div class="glass-card form-card">
+          <form id="editFilmForm">
+            <div class="form-group">
+              <label for="editFilmFormTitle"><i class='bx bxs-film'></i> Judul Film</label>
+              <input id="editFilmFormTitle" type="text" required />
+            </div>
+            <div class="form-group">
+              <label for="editFilmFormDirector"><i class='bx bxs-user'></i> Sutradara</label>
+              <input id="editFilmFormDirector" type="text" required />
+            </div>
+            <div class="form-group">
+              <label for="editFilmFormYear"><i class='bx bxs-calendar'></i> Tahun</label>
+              <input id="editFilmFormYear" type="number" required />
+            </div>
+            <div class="form-group checkbox-group">
+              <input id="editFilmFormIsComplete" type="checkbox" />
+              <label for="editFilmFormIsComplete">Sudah ditonton</label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary"><i class='bx bxs-save'></i> Simpan</button>
+              <button id="editFilmFormCancel" type="button" class="btn btn-danger"><i class='bx bxs-x-circle'></i>
+                Batal</button>
+            </div>
+          </form>
+        </div>
+      </section>
 
-    <!-- Complete Films -->
-    <section class="page-section" id="completeFilmSection">
-      <div class="section-title">
-        <i class='bx bxs-video'></i>
-        <h2>Sudah Ditonton</h2>
-      </div>
-      <div id="completeFilmList" class="book-grid"></div>
-    </section>
+      <section class="page-section" id="incompleteFilmSection">
+        <div class="section-title"><i class='bx bxs-video-off'></i>
+          <h2>Belum Ditonton</h2>
+        </div>
+        <div id="incompleteFilmList" class="book-grid"></div>
+      </section>
 
-    <!-- Search Films -->
-    <section class="page-section" id="searchFilmSection">
-      <div class="section-title">
-        <i class='bx bxs-search-alt-2'></i>
-        <h2>Cari Film</h2>
-      </div>
-      <div class="glass-card form-card">
-        <form id="searchFilm">
-          <div class="form-group">
-            <label for="searchFilmTitle"><i class='bx bxs-search'></i> Judul Film</label>
-            <input id="searchFilmTitle" type="text" placeholder="Ketik judul film yang dicari..." />
-          </div>
-          <button type="submit" class="btn btn-cyan">
-            <i class='bx bxs-search'></i> Cari Film
-          </button>
-        </form>
-      </div>
-      <div class="section-title" style="margin-top: 30px;">
-        <i class='bx bxs-video'></i>
-        <h2>Hasil Pencarian</h2>
-      </div>
-      <div id="searchFilmResults" class="book-grid"></div>
-    </section>
+      <section class="page-section" id="completeFilmSection">
+        <div class="section-title"><i class='bx bxs-video'></i>
+          <h2>Sudah Ditonton</h2>
+        </div>
+        <div id="completeFilmList" class="book-grid"></div>
+      </section>
 
+      <section class="page-section" id="searchFilmSection">
+        <div class="section-title"><i class='bx bxs-search-alt-2'></i>
+          <h2>Cari Film</h2>
+        </div>
+        <div class="glass-card form-card">
+          <form id="searchFilm">
+            <div class="form-group">
+              <label for="searchFilmTitle"><i class='bx bxs-search'></i> Judul Film</label>
+              <input id="searchFilmTitle" type="text" placeholder="Ketik judul film..." />
+            </div>
+            <button type="submit" class="btn btn-cyan"><i class='bx bxs-search'></i> Cari</button>
+          </form>
+        </div>
+        <div class="section-title" style="margin-top:30px"><i class='bx bxs-video'></i>
+          <h2>Hasil</h2>
+        </div>
+        <div id="searchFilmResults" class="book-grid"></div>
+      </section>
+
+    </div>
   </div>
 </body>
 
