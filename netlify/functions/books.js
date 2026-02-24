@@ -47,14 +47,14 @@ exports.handler = async function (event, context) {
                 if (search) {
                     books = await sql`
                         SELECT b.*, u.name AS owner_name
-                        FROM books b LEFT JOIN users u ON b.user_id = u.id
+                        FROM books b INNER JOIN users u ON b.user_id = u.id
                         WHERE LOWER(b.title) LIKE ${'%' + search.toLowerCase() + '%'}
                         ORDER BY b.id DESC
                     `;
                 } else {
                     books = await sql`
                         SELECT b.*, u.name AS owner_name
-                        FROM books b LEFT JOIN users u ON b.user_id = u.id
+                        FROM books b INNER JOIN users u ON b.user_id = u.id
                         ORDER BY b.id DESC
                     `;
                 }
