@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const BOOKS_API = '/api/books';
-  const FILMS_API = '/api/films';
+  const BOOKS_API = '/.netlify/functions/books';
+  const FILMS_API = '/.netlify/functions/films';
 
   // ============================================
   // DOM Elements — Books
@@ -155,10 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function updateItem(apiUrl, id, data) {
     try {
-      const response = await fetch(`${apiUrl}/${id}`, {
+      const response = await fetch(apiUrl, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ id, ...data }),
       });
       if (!response.ok) throw new Error('Update failed');
       return await response.json();
@@ -170,7 +170,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function deleteItem(apiUrl, id) {
     try {
-      const response = await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+      const response = await fetch(apiUrl, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
       if (!response.ok) throw new Error('Delete failed');
       return true;
     } catch (err) {
