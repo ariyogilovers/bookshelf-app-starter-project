@@ -567,12 +567,14 @@ body {
 
 /* ---------- Book Grid ---------- */
 .book-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .book-card {
+  flex: 1 1 320px;
+  max-width: 450px;
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -861,7 +863,11 @@ body {
   }
 
   .book-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .book-card {
+    max-width: 100%;
   }
 
   .stats-grid {
