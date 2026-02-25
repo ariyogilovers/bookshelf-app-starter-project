@@ -338,6 +338,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Toggle completion for any item (family-wide, uses PATCH)
+  async function toggleSharedItem(apiUrl, id, isComplete) {
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'PATCH',
+        headers: authHeaders(),
+        body: JSON.stringify({ id, isComplete }),
+      });
+      if (response.status === 401) { logout(); return null; }
+      if (!response.ok) throw new Error('Toggle failed');
+      return await response.json();
+    } catch (err) {
+      console.error('Toggle error:', err);
+      return null;
+    }
+  }
+
   async function deleteItem(apiUrl, id) {
     try {
       const response = await fetch(apiUrl, {
@@ -376,24 +393,30 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="book-badges">${statusBadge}${ownerBadge}</div>
       </div>
       <div class="book-actions">
+        <button class="btn-icon toggle" title="${book.isComplete ? 'Tandai belum' : 'Tandai selesai'}">
+          <i class='bx ${book.isComplete ? 'bxs-book-reader' : 'bxs-book-bookmark'}'></i>
+        </button>
         ${!showOwner ? `
-          <button class="btn-icon toggle" title="${book.isComplete ? 'Tandai belum' : 'Tandai selesai'}">
-            <i class='bx ${book.isComplete ? 'bxs-book-reader' : 'bxs-book-bookmark'}'></i>
-          </button>
           <button class="btn-icon edit" title="Edit"><i class='bx bxs-edit'></i></button>
           <button class="btn-icon delete" title="Hapus"><i class='bx bxs-trash'></i></button>
         ` : ''}
       </div>
     `;
 
-    if (!showOwner) {
-      div.querySelector('.toggle').addEventListener('click', async () => {
+    // Toggle is always available (own items use PUT, shared items use PATCH)
+    div.querySelector('.toggle').addEventListener('click', async () => {
+      if (showOwner) {
+        await toggleSharedItem(BOOKS_API, book.id, !book.isComplete);
+      } else {
         await updateItem(BOOKS_API, book.id, {
           title: book.title, author: book.author, year: book.year,
           genre: book.genre, franchise: book.franchise, isComplete: !book.isComplete,
         });
-        renderAll();
-      });
+      }
+      renderAll();
+    });
+
+    if (!showOwner) {
       div.querySelector('.edit').addEventListener('click', () => {
         editingBookId = book.id;
         editBookTitleInput.value = book.title;
@@ -434,24 +457,30 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="book-badges">${statusBadge}${ownerBadge}</div>
       </div>
       <div class="book-actions">
+        <button class="btn-icon toggle" title="${film.isComplete ? 'Tandai belum' : 'Tandai ditonton'}">
+          <i class='bx ${film.isComplete ? 'bxs-video-off' : 'bxs-video'}'></i>
+        </button>
         ${!showOwner ? `
-          <button class="btn-icon toggle" title="${film.isComplete ? 'Tandai belum' : 'Tandai ditonton'}">
-            <i class='bx ${film.isComplete ? 'bxs-video-off' : 'bxs-video'}'></i>
-          </button>
           <button class="btn-icon edit" title="Edit"><i class='bx bxs-edit'></i></button>
           <button class="btn-icon delete" title="Hapus"><i class='bx bxs-trash'></i></button>
         ` : ''}
       </div>
     `;
 
-    if (!showOwner) {
-      div.querySelector('.toggle').addEventListener('click', async () => {
+    // Toggle is always available (own items use PUT, shared items use PATCH)
+    div.querySelector('.toggle').addEventListener('click', async () => {
+      if (showOwner) {
+        await toggleSharedItem(FILMS_API, film.id, !film.isComplete);
+      } else {
         await updateItem(FILMS_API, film.id, {
           title: film.title, director: film.director, year: film.year,
           genre: film.genre, franchise: film.franchise, isComplete: !film.isComplete,
         });
-        renderAll();
-      });
+      }
+      renderAll();
+    });
+
+    if (!showOwner) {
       div.querySelector('.edit').addEventListener('click', () => {
         editingFilmId = film.id;
         editFilmTitleInput.value = film.title;

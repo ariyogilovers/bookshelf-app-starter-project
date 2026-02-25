@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const CORS_HEADERS = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
     "Content-Type": "application/json",
 };
 
@@ -125,6 +125,27 @@ exports.handler = async function (event, context) {
                 return { statusCode: 404, headers: CORS_HEADERS, body: JSON.stringify({ error: "Film not found" }) };
             }
             return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify({ message: "Film deleted" }) };
+        }
+
+        // PATCH - Family-wide toggle completion (any authenticated user can toggle)
+        if (event.httpMethod === "PATCH") {
+            const { id, isComplete } = JSON.parse(event.body);
+            const result = await sql`
+                UPDATE films SET is_complete = ${isComplete}
+                WHERE id = ${id} RETURNING *
+            `;
+            if (result.length === 0) {
+                return { statusCode: 404, headers: CORS_HEADERS, body: JSON.stringify({ error: "Film not found" }) };
+            }
+            const row = result[0];
+            return {
+                statusCode: 200, headers: CORS_HEADERS,
+                body: JSON.stringify({
+                    id: Number(row.id), title: row.title, director: row.director, year: row.year,
+                    genre: row.genre || '', franchise: row.franchise || '',
+                    isComplete: row.is_complete, userId: row.user_id,
+                }),
+            };
         }
 
         return { statusCode: 405, headers: CORS_HEADERS, body: JSON.stringify({ error: "Method not allowed" }) };
