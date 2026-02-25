@@ -383,36 +383,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const ownerBadge = showOwner && book.ownerName
       ? `<span class="owner-badge"><i class='bx bxs-user'></i> ${book.ownerName}</span>` : '';
 
+    const names = (book.completedBy || '').split(',').map(n => n.trim()).filter(Boolean);
+    const isUserComplete = currentUser && names.includes(currentUser.name);
+
     div.innerHTML = `
-      <div class="book-info">
-        <h3 class="book-title">${book.title}</h3>
-        <p class="book-meta"><i class='bx bxs-user'></i> ${book.author}</p>
-        <p class="book-meta"><i class='bx bxs-calendar'></i> ${book.year}</p>
-        ${book.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${book.genre}</p>` : ''}
-        ${book.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${book.franchise}</p>` : ''}
-        <div class="book-badges">${statusBadge}${ownerBadge}</div>
-        ${book.isComplete && book.completedBy ? `<p class="completed-by"><i class='bx bxs-check-shield'></i> Dibaca oleh: <strong>${book.completedBy}</strong></p>` : ''}
-      </div>
-      <div class="book-actions">
-        <button class="btn-icon toggle" title="${book.isComplete ? 'Tandai belum' : 'Tandai selesai'}">
-          <i class='bx ${book.isComplete ? 'bxs-book-reader' : 'bxs-book-bookmark'}'></i>
-        </button>
-        ${!showOwner ? `
-          <button class="btn-icon edit" title="Edit"><i class='bx bxs-edit'></i></button>
-          <button class="btn-icon delete" title="Hapus"><i class='bx bxs-trash'></i></button>
-        ` : ''}
-      </div>
-    `;
+    <div class="book-info">
+      <h3 class="book-title">${book.title}</h3>
+      <p class="book-meta"><i class='bx bxs-user'></i> ${book.author}</p>
+      <p class="book-meta"><i class='bx bxs-calendar'></i> ${book.year}</p>
+      ${book.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${book.genre}</p>` : ''}
+      ${book.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${book.franchise}</p>` : ''}
+      <div class="book-badges">${statusBadge}${ownerBadge}</div>
+      ${book.isComplete && book.completedBy ? `<p class="completed-by"><i class='bx bxs-check-shield'></i> Dibaca oleh: <strong>${book.completedBy}</strong></p>` : ''}
+    </div>
+    <div class="book-actions">
+      <button class="btn-icon toggle ${isUserComplete ? 'me' : ''}" title="${isUserComplete ? 'Tandai belum' : 'Tandai selesai'}">
+        <i class='bx ${isUserComplete ? 'bxs-book-reader' : 'bxs-book-bookmark'}'></i>
+      </button>
+      ${!showOwner ? `
+        <button class="btn-icon edit" title="Edit"><i class='bx bxs-edit'></i></button>
+        <button class="btn-icon delete" title="Hapus"><i class='bx bxs-trash'></i></button>
+      ` : ''}
+    </div>
+  `;
 
     // Toggle is always available (own items use PUT, shared items use PATCH)
     div.querySelector('.toggle').addEventListener('click', async () => {
       if (showOwner) {
-        await toggleSharedItem(BOOKS_API, book.id, !book.isComplete);
+        await toggleSharedItem(BOOKS_API, book.id, !isUserComplete);
         renderSharedDashboard();
       } else {
         await updateItem(BOOKS_API, book.id, {
           title: book.title, author: book.author, year: book.year,
-          genre: book.genre, franchise: book.franchise, isComplete: !book.isComplete,
+          genre: book.genre, franchise: book.franchise, isComplete: !isUserComplete,
         });
       }
       renderAll();
@@ -449,36 +452,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const ownerBadge = showOwner && film.ownerName
       ? `<span class="owner-badge"><i class='bx bxs-user'></i> ${film.ownerName}</span>` : '';
 
+    const names = (film.completedBy || '').split(',').map(n => n.trim()).filter(Boolean);
+    const isUserComplete = currentUser && names.includes(currentUser.name);
+
     div.innerHTML = `
-      <div class="book-info">
-        <h3 class="book-title">${film.title}</h3>
-        <p class="book-meta"><i class='bx bxs-user'></i> ${film.director}</p>
-        <p class="book-meta"><i class='bx bxs-calendar'></i> ${film.year}</p>
-        ${film.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${film.genre}</p>` : ''}
-        ${film.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${film.franchise}</p>` : ''}
-        <div class="book-badges">${statusBadge}${ownerBadge}</div>
-        ${film.isComplete && film.completedBy ? `<p class="completed-by"><i class='bx bxs-check-shield'></i> Ditonton oleh: <strong>${film.completedBy}</strong></p>` : ''}
-      </div>
-      <div class="book-actions">
-        <button class="btn-icon toggle" title="${film.isComplete ? 'Tandai belum' : 'Tandai ditonton'}">
-          <i class='bx ${film.isComplete ? 'bxs-video-off' : 'bxs-video'}'></i>
-        </button>
-        ${!showOwner ? `
-          <button class="btn-icon edit" title="Edit"><i class='bx bxs-edit'></i></button>
-          <button class="btn-icon delete" title="Hapus"><i class='bx bxs-trash'></i></button>
-        ` : ''}
-      </div>
-    `;
+    <div class="book-info">
+      <h3 class="book-title">${film.title}</h3>
+      <p class="book-meta"><i class='bx bxs-user'></i> ${film.director}</p>
+      <p class="book-meta"><i class='bx bxs-calendar'></i> ${film.year}</p>
+      ${film.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${film.genre}</p>` : ''}
+      ${film.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${film.franchise}</p>` : ''}
+      <div class="book-badges">${statusBadge}${ownerBadge}</div>
+      ${film.isComplete && film.completedBy ? `<p class="completed-by"><i class='bx bxs-check-shield'></i> Ditonton oleh: <strong>${film.completedBy}</strong></p>` : ''}
+    </div>
+    <div class="book-actions">
+      <button class="btn-icon toggle ${isUserComplete ? 'me' : ''}" title="${isUserComplete ? 'Tandai belum' : 'Tandai ditonton'}">
+        <i class='bx ${isUserComplete ? 'bxs-video-off' : 'bxs-video'}'></i>
+      </button>
+      ${!showOwner ? `
+        <button class="btn-icon edit" title="Edit"><i class='bx bxs-edit'></i></button>
+        <button class="btn-icon delete" title="Hapus"><i class='bx bxs-trash'></i></button>
+      ` : ''}
+    </div>
+  `;
 
     // Toggle is always available (own items use PUT, shared items use PATCH)
     div.querySelector('.toggle').addEventListener('click', async () => {
       if (showOwner) {
-        await toggleSharedItem(FILMS_API, film.id, !film.isComplete);
+        await toggleSharedItem(FILMS_API, film.id, !isUserComplete);
         renderSharedDashboard();
       } else {
         await updateItem(FILMS_API, film.id, {
           title: film.title, director: film.director, year: film.year,
-          genre: film.genre, franchise: film.franchise, isComplete: !film.isComplete,
+          genre: film.genre, franchise: film.franchise, isComplete: !isUserComplete,
         });
       }
       renderAll();
