@@ -330,7 +330,24 @@
           <button class="slider-btn next" id="sharedFilmsNext"><i class='bx bx-chevron-right'></i></button>
         </div>
 
-        <div class="category-label" style="margin-top:24px"><i class='bx bxs-grid-alt'></i> Galeri Lengkap Film</div>
+        <div class="category-label" style="margin-top:24px"><i class='bx bxs-filter-alt'></i> Cari di Galeri Film
+          Keluarga</div>
+        <div class="glass-card form-card" style="margin-bottom: 20px;">
+          <div class="form-group-row" style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 200px;">
+              <label for="sharedFilmSearchTitle"><i class='bx bxs-film'></i> Judul Film</label>
+              <input id="sharedFilmSearchTitle" type="text" placeholder="Ketik judul film..." />
+            </div>
+            <div class="form-group" style="flex: 1; min-width: 120px;">
+              <label for="sharedFilmSearchYear"><i class='bx bxs-calendar'></i> Tahun</label>
+              <input id="sharedFilmSearchYear" type="number" placeholder="2024" />
+            </div>
+            <div class="form-actions" style="display: flex; align-items: flex-end; padding-bottom: 5px;">
+              <button id="btnSearchSharedFilm" class="btn btn-magenta" style="height: 42px;"><i
+                  class='bx bxs-search'></i> Filter</button>
+            </div>
+          </div>
+        </div>
         <div id="sharedFilmsGallery" class="gallery-grid"></div>
       </section>
 

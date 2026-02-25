@@ -609,13 +609,33 @@ document.addEventListener('DOMContentLoaded', () => {
       recentFilms.forEach(f => sharedFilmsList.appendChild(createFilmElement(f, true)));
     }
 
-    // Gallery Films (All)
+    // Gallery Films (Initially Empty / Search Driven)
     if (sharedFilmsGallery) {
-      if (!films.length) {
-        sharedFilmsGallery.innerHTML = '<p class="empty-state">Belum ada film dari anggota keluarga.</p>';
-      } else {
-        films.forEach(f => sharedFilmsGallery.appendChild(createFilmElement(f, true)));
-      }
+      sharedFilmsGallery.innerHTML = '<p class="empty-state">Gunakan kolom pencarian di atas untuk memfilter film.</p>';
+    }
+
+    // Add search handler for Shared Film Gallery (Only if not already added)
+    const btnSearchSharedFilm = document.getElementById('btnSearchSharedFilm');
+    if (btnSearchSharedFilm && !btnSearchSharedFilm.dataset.listener) {
+      btnSearchSharedFilm.dataset.listener = 'true';
+      btnSearchSharedFilm.addEventListener('click', () => {
+        const titleQuery = document.getElementById('sharedFilmSearchTitle').value.toLowerCase();
+        const yearQuery = document.getElementById('sharedFilmSearchYear').value;
+
+        sharedFilmsGallery.innerHTML = '';
+
+        const filteredFilms = films.filter(f => {
+          const matchesTitle = f.title.toLowerCase().includes(titleQuery);
+          const matchesYear = yearQuery ? f.year == yearQuery : true;
+          return matchesTitle && matchesYear;
+        });
+
+        if (!filteredFilms.length) {
+          sharedFilmsGallery.innerHTML = '<p class="empty-state">Film tidak ditemukan.</p>';
+        } else {
+          filteredFilms.forEach(f => sharedFilmsGallery.appendChild(createFilmElement(f, true)));
+        }
+      });
     }
 
     // Setup sliders again for the new elements
