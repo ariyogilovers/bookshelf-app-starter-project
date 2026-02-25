@@ -391,13 +391,21 @@ body {
 }
 
 /* ---------- Content Area ---------- */
+.app-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+}
+
 .content-area {
+  flex: 1;
   margin-left: var(--sidebar-width);
   min-height: 100vh;
   padding: 30px 40px;
   position: relative;
   z-index: 1;
   transition: var(--transition);
+  max-width: 100%;
 }
 
 /* ---------- Header ---------- */
