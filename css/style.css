@@ -569,18 +569,31 @@ body {
 .book-grid {
   display: flex;
   flex-wrap: nowrap;
-  /* Force horizontal for slider */
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   padding: 10px 4px 20px;
-  scrollbar-width: none;
-  /* Hide scrollbar for cleaner look */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.3) transparent;
 }
 
 .book-grid::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.book-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 3px;
+}
+
+.book-grid::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: 3px;
+}
+
+.book-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.5);
 }
 
 .slider-container {
@@ -607,13 +620,11 @@ body {
   cursor: pointer;
   z-index: 10;
   transition: var(--transition);
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0.6;
 }
 
 .slider-container:hover .slider-btn {
   opacity: 1;
-  pointer-events: auto;
 }
 
 .slider-btn:hover {
