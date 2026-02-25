@@ -121,6 +121,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = document.getElementById(config.next);
 
       if (grid && prev && next) {
+        // Show/hide buttons based on overflow
+        const updateButtonVisibility = () => {
+          const hasOverflow = grid.scrollWidth > grid.clientWidth + 5;
+          prev.style.display = hasOverflow ? 'flex' : 'none';
+          next.style.display = hasOverflow ? 'flex' : 'none';
+        };
+
+        // Initial check and check after images/content might load
+        setTimeout(updateButtonVisibility, 500);
+        window.addEventListener('resize', updateButtonVisibility);
+
         // Use onclick to ensure we don't have duplicate listeners if setupSliders is called again
         prev.onclick = () => grid.scrollBy({ left: -340, behavior: 'smooth' });
         next.onclick = () => grid.scrollBy({ left: 340, behavior: 'smooth' });
