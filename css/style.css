@@ -960,6 +960,37 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
   }
+
+  .slider-container {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .slider-container .slider-btn {
+    display: none !important;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group-row {
+    flex-direction: column;
+    gap: 10px !important;
+  }
+
+  .form-group-row .form-group {
+    width: 100%;
+  }
+
+  .form-group-row .form-actions {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .form-group-row .btn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
