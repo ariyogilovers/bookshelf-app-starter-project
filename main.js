@@ -576,14 +576,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sharedBooksList = document.getElementById('sharedBooksList');
     const sharedFilmsList = document.getElementById('sharedFilmsList');
+    const sharedBooksGallery = document.getElementById('sharedBooksGallery');
+    const sharedFilmsGallery = document.getElementById('sharedFilmsGallery');
+
     sharedBooksList.innerHTML = '';
     sharedFilmsList.innerHTML = '';
+    if (sharedBooksGallery) sharedBooksGallery.innerHTML = '';
+    if (sharedFilmsGallery) sharedFilmsGallery.innerHTML = '';
 
-    if (!books.length) sharedBooksList.innerHTML = '<p class="empty-state">Belum ada buku dari anggota keluarga.</p>';
-    else books.forEach(b => sharedBooksList.appendChild(createBookElement(b, true)));
+    // Slider Books (Limit 10)
+    const recentBooks = books.slice(0, 10);
+    if (!recentBooks.length) {
+      sharedBooksList.innerHTML = '<p class="empty-state">Belum ada buku dari anggota keluarga.</p>';
+    } else {
+      recentBooks.forEach(b => sharedBooksList.appendChild(createBookElement(b, true)));
+    }
 
-    if (!films.length) sharedFilmsList.innerHTML = '<p class="empty-state">Belum ada film dari anggota keluarga.</p>';
-    else films.forEach(f => sharedFilmsList.appendChild(createFilmElement(f, true)));
+    // Gallery Books (All)
+    if (sharedBooksGallery) {
+      if (!books.length) {
+        sharedBooksGallery.innerHTML = '<p class="empty-state">Belum ada buku dari anggota keluarga.</p>';
+      } else {
+        books.forEach(b => sharedBooksGallery.appendChild(createBookElement(b, true)));
+      }
+    }
+
+    // Slider Films (Limit 10)
+    const recentFilms = films.slice(0, 10);
+    if (!recentFilms.length) {
+      sharedFilmsList.innerHTML = '<p class="empty-state">Belum ada film dari anggota keluarga.</p>';
+    } else {
+      recentFilms.forEach(f => sharedFilmsList.appendChild(createFilmElement(f, true)));
+    }
+
+    // Gallery Films (All)
+    if (sharedFilmsGallery) {
+      if (!films.length) {
+        sharedFilmsGallery.innerHTML = '<p class="empty-state">Belum ada film dari anggota keluarga.</p>';
+      } else {
+        films.forEach(f => sharedFilmsGallery.appendChild(createFilmElement(f, true)));
+      }
+    }
 
     // Setup sliders again for the new elements
     setupSliders();
