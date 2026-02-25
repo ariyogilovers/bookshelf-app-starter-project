@@ -121,33 +121,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = document.getElementById(config.next);
 
       if (grid && prev && next) {
-        prev.onclick = () => {
-          grid.scrollBy({ left: -340, behavior: 'smooth' });
-        };
-        next.onclick = () => {
-          grid.scrollBy({ left: 340, behavior: 'smooth' });
-        };
+        // Use onclick to ensure we don't have duplicate listeners if setupSliders is called again
+        prev.onclick = () => grid.scrollBy({ left: -340, behavior: 'smooth' });
+        next.onclick = () => grid.scrollBy({ left: 340, behavior: 'smooth' });
 
-        // Auto-run / Auto-slide effect ("berjalan")
-        let autoScroll = setInterval(() => {
-          if (grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth) {
+        // Clear existing interval if it exists on the element to avoid leaks
+        if (grid._autoScrollIdx) clearInterval(grid._autoScrollIdx);
+
+        const startAutoScroll = () => setInterval(() => {
+          if (grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth - 10) {
             grid.scrollTo({ left: 0, behavior: 'smooth' });
           } else {
             grid.scrollBy({ left: 340, behavior: 'smooth' });
           }
-        }, 8000); // Every 8 seconds
+        }, 8000);
+
+        grid._autoScrollIdx = startAutoScroll();
 
         // Pause on hover
-        grid.addEventListener('mouseenter', () => clearInterval(autoScroll));
-        grid.addEventListener('mouseleave', () => {
-          autoScroll = setInterval(() => {
-            if (grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth) {
-              grid.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-              grid.scrollBy({ left: 340, behavior: 'smooth' });
-            }
-          }, 8000);
-        });
+        grid.onmouseenter = () => clearInterval(grid._autoScrollIdx);
+        grid.onmouseleave = () => grid._autoScrollIdx = startAutoScroll();
       }
     });
   }
@@ -587,6 +580,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!films.length) sharedFilmsList.innerHTML = '<p class="empty-state">Belum ada film dari anggota keluarga.</p>';
     else films.forEach(f => sharedFilmsList.appendChild(createFilmElement(f, true)));
+
+    // Setup sliders again for the new elements
+    setupSliders();
   }
 
   // ============================================

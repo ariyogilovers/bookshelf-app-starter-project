@@ -634,11 +634,11 @@ body {
 }
 
 .slider-btn.prev {
-  left: -20px;
+  left: 0px;
 }
 
 .slider-btn.next {
-  right: -20px;
+  right: 0px;
 }
 
 .book-card {
