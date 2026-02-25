@@ -108,9 +108,10 @@ exports.handler = async function (event, context) {
                 names = names.filter(n => n !== user.name);
             }
             const completedBy = names.join(', ');
+            const finalComplete = names.length > 0 ? true : isComplete;
             const result = await sql`
                 UPDATE films SET title = ${title}, director = ${director}, year = ${year},
-                    genre = ${genre || ''}, franchise = ${franchise || ''}, is_complete = ${isComplete},
+                    genre = ${genre || ''}, franchise = ${franchise || ''}, is_complete = ${finalComplete},
                     completed_by = ${completedBy}
                 WHERE id = ${id} AND user_id = ${user.id} RETURNING *
             `;
