@@ -605,40 +605,43 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 10, 20, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--neon-cyan);
   border-radius: 50%;
   color: var(--neon-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
-  z-index: 10;
-  transition: var(--transition);
-  opacity: 0.6;
+  z-index: 999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.8;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
 }
 
 .slider-container:hover .slider-btn {
   opacity: 1;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
 }
 
 .slider-btn:hover {
-  background: rgba(0, 240, 255, 0.1);
-  border-color: var(--neon-cyan);
+  background: var(--neon-cyan);
+  color: #000;
+  transform: translateY(-50%) scale(1.1);
   box-shadow: var(--glow-cyan);
 }
 
 .slider-btn.prev {
-  left: 0px;
+  left: 10px;
 }
 
 .slider-btn.next {
-  right: 0px;
+  right: 10px;
 }
 
 .book-card {
