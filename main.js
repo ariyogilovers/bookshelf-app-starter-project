@@ -407,6 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
     div.querySelector('.toggle').addEventListener('click', async () => {
       if (showOwner) {
         await toggleSharedItem(BOOKS_API, book.id, !book.isComplete);
+        renderSharedDashboard();
       } else {
         await updateItem(BOOKS_API, book.id, {
           title: book.title, author: book.author, year: book.year,
@@ -471,6 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     div.querySelector('.toggle').addEventListener('click', async () => {
       if (showOwner) {
         await toggleSharedItem(FILMS_API, film.id, !film.isComplete);
+        renderSharedDashboard();
       } else {
         await updateItem(FILMS_API, film.id, {
           title: film.title, director: film.director, year: film.year,
