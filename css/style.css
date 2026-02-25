@@ -597,15 +597,19 @@ body {
 }
 
 .slider-container {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 30px;
-  padding: 0 50px;
+}
+
+.slider-container .book-grid {
+  flex: 1;
+  min-width: 0;
 }
 
 .slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  flex-shrink: 0;
   width: 44px;
   height: 44px;
   background: rgba(0, 10, 20, 0.85);
@@ -619,7 +623,7 @@ body {
   justify-content: center;
   font-size: 28px;
   cursor: pointer;
-  z-index: 999;
+  z-index: 10;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.8;
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
@@ -633,16 +637,8 @@ body {
 .slider-btn:hover {
   background: var(--neon-cyan);
   color: #000;
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
   box-shadow: var(--glow-cyan);
-}
-
-.slider-btn.prev {
-  left: 0;
-}
-
-.slider-btn.next {
-  right: 0;
 }
 
 .book-card {
