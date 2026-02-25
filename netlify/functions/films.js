@@ -99,9 +99,11 @@ exports.handler = async function (event, context) {
         // PUT
         if (event.httpMethod === "PUT") {
             const { id, title, director, year, genre, franchise, isComplete } = JSON.parse(event.body);
+            const completedBy = isComplete ? user.name : '';
             const result = await sql`
                 UPDATE films SET title = ${title}, director = ${director}, year = ${year},
-                    genre = ${genre || ''}, franchise = ${franchise || ''}, is_complete = ${isComplete}
+                    genre = ${genre || ''}, franchise = ${franchise || ''}, is_complete = ${isComplete},
+                    completed_by = ${completedBy}
                 WHERE id = ${id} AND user_id = ${user.id} RETURNING *
             `;
             if (result.length === 0) {
