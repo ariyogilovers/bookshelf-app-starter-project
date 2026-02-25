@@ -391,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ${book.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${book.genre}</p>` : ''}
         ${book.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${book.franchise}</p>` : ''}
         <div class="book-badges">${statusBadge}${ownerBadge}</div>
+        ${book.isComplete && book.completedBy ? `<p class="completed-by"><i class='bx bxs-check-shield'></i> Dibaca oleh: <strong>${book.completedBy}</strong></p>` : ''}
       </div>
       <div class="book-actions">
         <button class="btn-icon toggle" title="${book.isComplete ? 'Tandai belum' : 'Tandai selesai'}">
@@ -456,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ${film.genre ? `<p class="book-meta"><i class='bx bxs-category'></i> ${film.genre}</p>` : ''}
         ${film.franchise ? `<p class="book-meta"><i class='bx bxs-star'></i> ${film.franchise}</p>` : ''}
         <div class="book-badges">${statusBadge}${ownerBadge}</div>
+        ${film.isComplete && film.completedBy ? `<p class="completed-by"><i class='bx bxs-check-shield'></i> Ditonton oleh: <strong>${film.completedBy}</strong></p>` : ''}
       </div>
       <div class="book-actions">
         <button class="btn-icon toggle" title="${film.isComplete ? 'Tandai belum' : 'Tandai ditonton'}">

@@ -62,6 +62,12 @@ exports.handler = async function (event, context) {
                 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='films' AND column_name='franchise') THEN
                     ALTER TABLE films ADD COLUMN franchise VARCHAR(100) DEFAULT '';
                 END IF;
+                IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='books' AND column_name='completed_by') THEN
+                    ALTER TABLE books ADD COLUMN completed_by VARCHAR(100) DEFAULT '';
+                END IF;
+                IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='films' AND column_name='completed_by') THEN
+                    ALTER TABLE films ADD COLUMN completed_by VARCHAR(100) DEFAULT '';
+                END IF;
             END $$
         `;
 

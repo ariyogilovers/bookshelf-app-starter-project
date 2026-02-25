@@ -72,6 +72,7 @@ exports.handler = async function (event, context) {
                 id: Number(row.id), title: row.title, director: row.director,
                 year: row.year, genre: row.genre || '', franchise: row.franchise || '',
                 isComplete: row.is_complete, userId: row.user_id, ownerName: row.owner_name || null,
+                completedBy: row.completed_by || '',
             }));
             return { statusCode: 200, headers: CORS_HEADERS, body: JSON.stringify(mapped) };
         }
@@ -130,8 +131,9 @@ exports.handler = async function (event, context) {
         // PATCH - Family-wide toggle completion (any authenticated user can toggle)
         if (event.httpMethod === "PATCH") {
             const { id, isComplete } = JSON.parse(event.body);
+            const completedBy = isComplete ? user.name : '';
             const result = await sql`
-                UPDATE films SET is_complete = ${isComplete}
+                UPDATE films SET is_complete = ${isComplete}, completed_by = ${completedBy}
                 WHERE id = ${id} RETURNING *
             `;
             if (result.length === 0) {
@@ -144,6 +146,7 @@ exports.handler = async function (event, context) {
                     id: Number(row.id), title: row.title, director: row.director, year: row.year,
                     genre: row.genre || '', franchise: row.franchise || '',
                     isComplete: row.is_complete, userId: row.user_id,
+                    completedBy: row.completed_by || '',
                 }),
             };
         }
