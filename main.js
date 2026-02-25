@@ -592,14 +592,35 @@ document.addEventListener('DOMContentLoaded', () => {
       recentBooks.forEach(b => sharedBooksList.appendChild(createBookElement(b, true)));
     }
 
-    // Gallery Books (All)
+    // Gallery Books (Initially Empty / Search Driven)
     if (sharedBooksGallery) {
-      if (!books.length) {
-        sharedBooksGallery.innerHTML = '<p class="empty-state">Belum ada buku dari anggota keluarga.</p>';
-      } else {
-        books.forEach(b => sharedBooksGallery.appendChild(createBookElement(b, true)));
-      }
+      sharedBooksGallery.innerHTML = '<p class="empty-state">Gunakan kolom pencarian di atas untuk memfilter buku.</p>';
     }
+
+    // Add search handler for Shared Book Gallery
+    const btnSearchSharedBook = document.getElementById('btnSearchSharedBook');
+    if (btnSearchSharedBook && !btnSearchSharedBook.dataset.listener) {
+      btnSearchSharedBook.dataset.listener = 'true';
+      btnSearchSharedBook.addEventListener('click', () => {
+        const titleQuery = document.getElementById('sharedBookSearchTitle').value.toLowerCase();
+        const yearQuery = document.getElementById('sharedBookSearchYear').value;
+
+        sharedBooksGallery.innerHTML = '';
+
+        const filteredBooks = books.filter(b => {
+          const matchesTitle = b.title.toLowerCase().includes(titleQuery);
+          const matchesYear = yearQuery ? b.year == yearQuery : true;
+          return matchesTitle && matchesYear;
+        });
+
+        if (!filteredBooks.length) {
+          sharedBooksGallery.innerHTML = '<p class="empty-state">Buku tidak ditemukan.</p>';
+        } else {
+          filteredBooks.forEach(b => sharedBooksGallery.appendChild(createBookElement(b, true)));
+        }
+      });
+    }
+
 
     // Slider Films (Limit 10)
     const recentFilms = films.slice(0, 10);

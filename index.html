@@ -297,7 +297,24 @@
           <button class="slider-btn next" id="sharedBooksNext"><i class='bx bx-chevron-right'></i></button>
         </div>
 
-        <div class="category-label" style="margin-top:24px"><i class='bx bxs-grid-alt'></i> Galeri Lengkap Buku</div>
+        <div class="category-label" style="margin-top:24px"><i class='bx bxs-filter-alt'></i> Cari di Galeri Buku
+          Keluarga</div>
+        <div class="glass-card form-card" style="margin-bottom: 20px;">
+          <div class="form-group-row" style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 200px;">
+              <label for="sharedBookSearchTitle"><i class='bx bxs-book'></i> Judul Buku</label>
+              <input id="sharedBookSearchTitle" type="text" placeholder="Ketik judul buku..." />
+            </div>
+            <div class="form-group" style="flex: 1; min-width: 120px;">
+              <label for="sharedBookSearchYear"><i class='bx bxs-calendar'></i> Tahun</label>
+              <input id="sharedBookSearchYear" type="number" placeholder="2024" />
+            </div>
+            <div class="form-actions" style="display: flex; align-items: flex-end; padding-bottom: 5px;">
+              <button id="btnSearchSharedBook" class="btn btn-cyan" style="height: 42px;"><i class='bx bxs-search'></i>
+                Filter</button>
+            </div>
+          </div>
+        </div>
         <div id="sharedBooksGallery" class="gallery-grid"></div>
 
         <div class="category-label" style="margin-top:30px"><i class='bx bxs-film'></i> Semua Film Keluarga</div>
