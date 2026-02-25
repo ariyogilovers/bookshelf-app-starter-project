@@ -599,6 +599,7 @@ body {
 .slider-container {
   position: relative;
   margin-bottom: 30px;
+  overflow: visible;
 }
 
 .slider-btn {
