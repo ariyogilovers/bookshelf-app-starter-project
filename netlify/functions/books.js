@@ -99,7 +99,15 @@ exports.handler = async function (event, context) {
         // PUT
         if (event.httpMethod === "PUT") {
             const { id, title, author, year, genre, franchise, isComplete } = JSON.parse(event.body);
-            const completedBy = isComplete ? user.name : '';
+            // For personal PUT: add/remove own name from completed_by list
+            const existing = await sql`SELECT completed_by FROM books WHERE id = ${id}`;
+            let names = (existing[0]?.completed_by || '').split(',').map(n => n.trim()).filter(Boolean);
+            if (isComplete && !names.includes(user.name)) {
+                names.push(user.name);
+            } else if (!isComplete) {
+                names = names.filter(n => n !== user.name);
+            }
+            const completedBy = names.join(', ');
             const result = await sql`
                 UPDATE books SET title = ${title}, author = ${author}, year = ${year},
                     genre = ${genre || ''}, franchise = ${franchise || ''}, is_complete = ${isComplete},
@@ -133,9 +141,18 @@ exports.handler = async function (event, context) {
         // PATCH - Family-wide toggle completion (any authenticated user can toggle)
         if (event.httpMethod === "PATCH") {
             const { id, isComplete } = JSON.parse(event.body);
-            const completedBy = isComplete ? user.name : '';
+            // Get existing completed_by list and add/remove current user
+            const existing = await sql`SELECT completed_by FROM books WHERE id = ${id}`;
+            let names = (existing[0]?.completed_by || '').split(',').map(n => n.trim()).filter(Boolean);
+            if (isComplete && !names.includes(user.name)) {
+                names.push(user.name);
+            } else if (!isComplete) {
+                names = names.filter(n => n !== user.name);
+            }
+            const completedBy = names.join(', ');
+            const finalComplete = names.length > 0 ? true : isComplete;
             const result = await sql`
-                UPDATE books SET is_complete = ${isComplete}, completed_by = ${completedBy}
+                UPDATE books SET is_complete = ${finalComplete}, completed_by = ${completedBy}
                 WHERE id = ${id} RETURNING *
             `;
             if (result.length === 0) {
