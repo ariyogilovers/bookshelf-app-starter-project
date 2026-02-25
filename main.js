@@ -98,6 +98,54 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAll();
   }
 
+  // ============================================
+  // Slider Logic
+  // ============================================
+  function setupSliders() {
+    const sliderConfigs = [
+      { grid: 'recentBooks', prev: 'recentBooksPrev', next: 'recentBooksNext' },
+      { grid: 'recentFilms', prev: 'recentFilmsPrev', next: 'recentFilmsNext' },
+      { grid: 'sharedBooksList', prev: 'sharedBooksPrev', next: 'sharedBooksNext' },
+      { grid: 'sharedFilmsList', prev: 'sharedFilmsPrev', next: 'sharedFilmsNext' }
+    ];
+
+    sliderConfigs.forEach(config => {
+      const grid = document.getElementById(config.grid);
+      const prev = document.getElementById(config.prev);
+      const next = document.getElementById(config.next);
+
+      if (grid && prev && next) {
+        prev.onclick = () => {
+          grid.scrollBy({ left: -340, behavior: 'smooth' });
+        };
+        next.onclick = () => {
+          grid.scrollBy({ left: 340, behavior: 'smooth' });
+        };
+
+        // Auto-run / Auto-slide effect ("berjalan")
+        let autoScroll = setInterval(() => {
+          if (grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth) {
+            grid.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            grid.scrollBy({ left: 340, behavior: 'smooth' });
+          }
+        }, 8000); // Every 8 seconds
+
+        // Pause on hover
+        grid.addEventListener('mouseenter', () => clearInterval(autoScroll));
+        grid.addEventListener('mouseleave', () => {
+          autoScroll = setInterval(() => {
+            if (grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth) {
+              grid.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              grid.scrollBy({ left: 340, behavior: 'smooth' });
+            }
+          }, 8000);
+        });
+      }
+    });
+  }
+
   function showAuth() {
     authContainer.style.display = 'flex';
     appWrapper.style.display = 'none';
@@ -264,6 +312,9 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
   }
+
+  // Call slider setup once
+  setupSliders();
 
   async function updateItem(apiUrl, id, data) {
     try {

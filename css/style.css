@@ -568,12 +568,72 @@ body {
 /* ---------- Book Grid ---------- */
 .book-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  /* Force horizontal for slider */
   gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 10px 4px 20px;
+  scrollbar-width: none;
+  /* Hide scrollbar for cleaner look */
+}
+
+.book-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  color: var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slider-container:hover .slider-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slider-btn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.slider-btn.prev {
+  left: -20px;
+}
+
+.slider-btn.next {
+  right: -20px;
 }
 
 .book-card {
-  flex: 1 1 320px;
+  flex: 0 0 320px;
+  /* Fixed width for slider items */
+  scroll-snap-align: start;
   max-width: 450px;
   background: var(--glass-bg);
   backdrop-filter: blur(16px);

@@ -242,11 +242,19 @@
         <div class="section-title" style="margin-top:30px"><i class='bx bxs-time-five'></i>
           <h2>Buku Terbaru</h2>
         </div>
-        <div id="recentBooks" class="book-grid"></div>
+        <div class="slider-container">
+          <button class="slider-btn prev" id="recentBooksPrev"><i class='bx bx-chevron-left'></i></button>
+          <div id="recentBooks" class="book-grid"></div>
+          <button class="slider-btn next" id="recentBooksNext"><i class='bx bx-chevron-right'></i></button>
+        </div>
         <div class="section-title" style="margin-top:30px"><i class='bx bxs-time-five'></i>
           <h2>Film Terbaru</h2>
         </div>
-        <div id="recentFilms" class="book-grid"></div>
+        <div class="slider-container">
+          <button class="slider-btn prev" id="recentFilmsPrev"><i class='bx bx-chevron-left'></i></button>
+          <div id="recentFilms" class="book-grid"></div>
+          <button class="slider-btn next" id="recentFilmsNext"><i class='bx bx-chevron-right'></i></button>
+        </div>
       </section>
 
       <!-- ============================== -->
@@ -283,7 +291,11 @@
             </div>
           </div>
         </div>
-        <div id="sharedBooksList" class="book-grid" style="margin-top:20px"></div>
+        <div class="slider-container" style="margin-top:20px">
+          <button class="slider-btn prev" id="sharedBooksPrev"><i class='bx bx-chevron-left'></i></button>
+          <div id="sharedBooksList" class="book-grid"></div>
+          <button class="slider-btn next" id="sharedBooksNext"><i class='bx bx-chevron-right'></i></button>
+        </div>
 
         <div class="category-label" style="margin-top:30px"><i class='bx bxs-film'></i> Semua Film Keluarga</div>
         <div class="stats-grid">
@@ -309,7 +321,11 @@
             </div>
           </div>
         </div>
-        <div id="sharedFilmsList" class="book-grid" style="margin-top:20px"></div>
+        <div class="slider-container" style="margin-top:20px">
+          <button class="slider-btn prev" id="sharedFilmsPrev"><i class='bx bx-chevron-left'></i></button>
+          <div id="sharedFilmsList" class="book-grid"></div>
+          <button class="slider-btn next" id="sharedFilmsNext"><i class='bx bx-chevron-right'></i></button>
+        </div>
       </section>
 
       <!-- BOOK SECTIONS (same as before) -->
