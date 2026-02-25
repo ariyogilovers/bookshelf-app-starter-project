@@ -106,7 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
       { grid: 'recentBooks', prev: 'recentBooksPrev', next: 'recentBooksNext' },
       { grid: 'recentFilms', prev: 'recentFilmsPrev', next: 'recentFilmsNext' },
       { grid: 'sharedBooksList', prev: 'sharedBooksPrev', next: 'sharedBooksNext' },
-      { grid: 'sharedFilmsList', prev: 'sharedFilmsPrev', next: 'sharedFilmsNext' }
+      { grid: 'sharedFilmsList', prev: 'sharedFilmsPrev', next: 'sharedFilmsNext' },
+      { grid: 'incompleteBookList', prev: 'incompleteBookPrev', next: 'incompleteBookNext' },
+      { grid: 'completeBookList', prev: 'completeBookPrev', next: 'completeBookNext' },
+      { grid: 'searchBookResults', prev: 'searchBookPrev', next: 'searchBookNext' },
+      { grid: 'incompleteFilmList', prev: 'incompleteFilmPrev', next: 'incompleteFilmNext' },
+      { grid: 'completeFilmList', prev: 'completeFilmPrev', next: 'completeFilmNext' },
+      { grid: 'searchFilmResults', prev: 'searchFilmPrev', next: 'searchFilmNext' }
     ];
 
     sliderConfigs.forEach(config => {
