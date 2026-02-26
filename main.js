@@ -574,6 +574,91 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('sharedIncFilms').textContent = incFilms.length;
     document.getElementById('sharedComFilms').textContent = comFilms.length;
 
+    // --- Chart Calculation & Rendering ---
+    const userStats = {};
+
+    // Helper to calculate stats
+    const calculateStats = (items, type) => {
+      items.forEach(item => {
+        if (item.completedBy) {
+          const names = item.completedBy.split(',').map(n => n.trim()).filter(Boolean);
+          names.forEach(name => {
+            if (!userStats[name]) userStats[name] = { books: 0, films: 0 };
+            userStats[name][type]++;
+          });
+        }
+      });
+    };
+
+    calculateStats(comBooks, 'books');
+    calculateStats(comFilms, 'films');
+
+    const labels = Object.keys(userStats);
+    const booksData = labels.map(name => userStats[name].books);
+    const filmsData = labels.map(name => userStats[name].films);
+
+    const ctx = document.getElementById('familyChart').getContext('2d');
+
+    // Destroy existing chart if it exists to prevent overlapping
+    if (window.familyChartInstance) {
+      window.familyChartInstance.destroy();
+    }
+
+    // Chart.js global defaults for glass styling
+    Chart.defaults.color = '#e2e8f0';
+    Chart.defaults.font.family = "'Inter', sans-serif";
+
+    window.familyChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Buku Selesai',
+            data: booksData,
+            backgroundColor: 'rgba(6, 182, 212, 0.7)', // Cyan
+            borderColor: '#06b6d4',
+            borderWidth: 1,
+            borderRadius: 4
+          },
+          {
+            label: 'Film Selesai',
+            data: filmsData,
+            backgroundColor: 'rgba(217, 70, 239, 0.7)', // Magenta
+            borderColor: '#d946ef',
+            borderWidth: 1,
+            borderRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.1)'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        }
+      }
+    });
+    // --- End Chart Setup ---
+
     const sharedBooksList = document.getElementById('sharedBooksList');
     const sharedFilmsList = document.getElementById('sharedFilmsList');
     const sharedBooksGallery = document.getElementById('sharedBooksGallery');
